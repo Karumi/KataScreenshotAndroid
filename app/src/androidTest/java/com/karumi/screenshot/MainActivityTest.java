@@ -133,7 +133,9 @@ public class MainActivityTest extends ScreenshotTest {
     for (int i = 0; i < numberOfSuperHeroes; i++) {
       String superHeroName = "SuperHero - " + i;
       String superHeroDescription = "Description Super Hero - " + i;
-      SuperHero superHero = new SuperHero(superHeroName, null, avengers, superHeroDescription);
+      SuperHero superHero =
+          new SuperHero(superHeroName, null, avengers,
+              superHeroDescription);
       superHeroes.add(superHero);
       when(repository.getByName(superHeroName)).thenReturn(superHero);
     }
