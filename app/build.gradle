@@ -17,7 +17,7 @@ android {
   compileSdkVersion 23
   buildToolsVersion "23.0.2"
   defaultConfig {
-    applicationId 'com.karumi.katasuperheroes'
+    applicationId 'com.karumi.screenshot'
     minSdkVersion 16
     targetSdkVersion 23
     versionCode 1

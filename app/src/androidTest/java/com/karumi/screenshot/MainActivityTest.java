@@ -16,17 +16,14 @@
 
 package com.karumi.screenshot;
 
+import android.app.Activity;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
-import android.support.test.espresso.matcher.ViewMatchers;
-import android.view.View;
 import com.karumi.screenshot.di.MainComponent;
 import com.karumi.screenshot.di.MainModule;
 import com.karumi.screenshot.model.SuperHero;
 import com.karumi.screenshot.model.SuperHeroesRepository;
-import com.karumi.screenshot.recyclerview.RecyclerViewInteraction;
 import com.karumi.screenshot.ui.view.MainActivity;
 import com.karumi.screenshot.ui.view.SuperHeroDetailActivity;
 import it.cosenonjaviste.daggermock.DaggerMockRule;
@@ -39,18 +36,10 @@ import org.mockito.Mock;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtra;
-import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.karumi.screenshot.matchers.RecyclerViewItemsCountMatcher.recyclerViewHasItemCount;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.Matchers.allOf;
 import static org.mockito.Mockito.when;
 
 public class MainActivityTest extends ScreenshotTest {
@@ -77,67 +66,41 @@ public class MainActivityTest extends ScreenshotTest {
   @Test public void showsEmptyCaseIfThereAreNoSuperHeroes() {
     givenThereAreNoSuperHeroes();
 
-    startActivity();
+    Activity activity = startActivity();
 
-    onView(withText("¯\\_(ツ)_/¯")).check(matches(isDisplayed()));
+    takeScreenshot(activity);
   }
 
-  @Test public void showsSuperHeroesNameIfThereAreSuperHeroes() {
-    List<SuperHero> superHeroes = givenThereAreSomeSuperHeroes(ANY_NUMBER_OF_SUPER_HEROES);
+  @Test public void showsJustOneSuperHero() {
+    givenThereAreSomeSuperHeroes(1);
 
-    startActivity();
+    Activity activity = startActivity();
 
-    RecyclerViewInteraction.<SuperHero>onRecyclerView(
-        ViewMatchers.withId(R.id.recycler_view)).withItems(superHeroes)
-        .check(new RecyclerViewInteraction.ItemViewAssertion<SuperHero>() {
-          @Override public void check(SuperHero superHero, View view, NoMatchingViewException e) {
-            matches(hasDescendant(withText(superHero.getName()))).check(view, e);
-          }
-        });
+    takeScreenshot(activity);
+  }
+
+  @Test public void showsSuperHeroesIfThereAreSomeSuperHeroes() {
+    givenThereAreSomeSuperHeroes(ANY_NUMBER_OF_SUPER_HEROES);
+
+    Activity activity = startActivity();
+
+    takeScreenshot(activity);
   }
 
   @Test public void showsAvengersBadgeIfASuperHeroIsPartOfTheAvengersTeam() {
-    List<SuperHero> superHeroes = givenThereAreSomeAvengers(ANY_NUMBER_OF_SUPER_HEROES);
+    givenThereAreSomeAvengers(ANY_NUMBER_OF_SUPER_HEROES);
 
-    startActivity();
+    Activity activity = startActivity();
 
-    RecyclerViewInteraction.<SuperHero>onRecyclerView(withId(R.id.recycler_view)).withItems(
-        superHeroes).check(new RecyclerViewInteraction.ItemViewAssertion<SuperHero>() {
-      @Override public void check(SuperHero superHero, View view, NoMatchingViewException e) {
-        matches(hasDescendant(allOf(withId(R.id.iv_avengers_badge),
-            withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))).check(view, e);
-      }
-    });
+    takeScreenshot(activity);
   }
 
   @Test public void doesNotShowAvengersBadgeIfASuperHeroIsNotPartOfTheAvengersTeam() {
-    List<SuperHero> superHeroes = givenThereAreSomeSuperHeroes(ANY_NUMBER_OF_SUPER_HEROES, false);
+    givenThereAreSomeSuperHeroes(ANY_NUMBER_OF_SUPER_HEROES, false);
 
-    startActivity();
+    Activity activity = startActivity();
 
-    RecyclerViewInteraction.<SuperHero>onRecyclerView(withId(R.id.recycler_view)).withItems(
-        superHeroes).check(new RecyclerViewInteraction.ItemViewAssertion<SuperHero>() {
-      @Override public void check(SuperHero superHero, View view, NoMatchingViewException e) {
-        matches(hasDescendant(allOf(withId(R.id.iv_avengers_badge),
-            withEffectiveVisibility(ViewMatchers.Visibility.GONE)))).check(view, e);
-      }
-    });
-  }
-
-  @Test public void doesNotShowEmptyCaseIfThereAreSuperHeroes() {
-    givenThereAreSomeSuperHeroes(ANY_NUMBER_OF_SUPER_HEROES);
-
-    startActivity();
-
-    onView(withId(R.id.tv_empty_case)).check(matches(not(isDisplayed())));
-  }
-
-  @Test public void doesNotShowLoadingViewOnceSuperHeroesAreShown() {
-    givenThereAreSomeSuperHeroes(ANY_NUMBER_OF_SUPER_HEROES);
-
-    startActivity();
-
-    onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())));
+    takeScreenshot(activity);
   }
 
   @Test public void opensSuperHeroDetailActivityOnRecyclerViewItemTapped() {
@@ -151,15 +114,6 @@ public class MainActivityTest extends ScreenshotTest {
     SuperHero superHeroSelected = superHeroes.get(superHeroIndex);
     intended(hasComponent(SuperHeroDetailActivity.class.getCanonicalName()));
     intended(hasExtra("super_hero_name_key", superHeroSelected.getName()));
-  }
-
-  @Test public void showsTheExactNumberOfSuperHeroes() {
-    givenThereAreSomeSuperHeroes(ANY_NUMBER_OF_SUPER_HEROES);
-
-    startActivity();
-
-    onView(withId(R.id.recycler_view)).check(
-        matches(recyclerViewHasItemCount(ANY_NUMBER_OF_SUPER_HEROES)));
   }
 
   private List<SuperHero> givenThereAreSomeAvengers(int numberOfAvengers) {
@@ -178,10 +132,8 @@ public class MainActivityTest extends ScreenshotTest {
     List<SuperHero> superHeroes = new LinkedList<>();
     for (int i = 0; i < numberOfSuperHeroes; i++) {
       String superHeroName = "SuperHero - " + i;
-      String superHeroPhoto = "https://i.annihil.us/u/prod/marvel/i/mg/c/60/55b6a28ef24fa.jpg";
       String superHeroDescription = "Description Super Hero - " + i;
-      SuperHero superHero =
-          new SuperHero(superHeroName, superHeroPhoto, avengers, superHeroDescription);
+      SuperHero superHero = new SuperHero(superHeroName, null, avengers, superHeroDescription);
       superHeroes.add(superHero);
       when(repository.getByName(superHeroName)).thenReturn(superHero);
     }

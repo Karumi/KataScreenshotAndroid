@@ -15,6 +15,7 @@
   ~ limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:sharedUserId="com.karumi.screenshot.uid"
     package="com.karumi.screenshot">
 
   <uses-permission android:name="android.permission.INTERNET"/>

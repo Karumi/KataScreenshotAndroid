@@ -29,6 +29,18 @@ This Application is based on two Activities:
 
 The application architecture, dependencies and configuration is ready to just start writing tests. In this project you'll find  ``Dagger2`` configured to be able to replace production code with test doubles easily and Espresso to be able to interact with the application user interface and a screenshot testing framework ready to compare your application changes.
 
+Remember that after any production code change you can record your screenshots again executing:
+
+```
+./gradlew recordMode screenshotTests
+```
+
+To verify the correct behaviour of your code you can execute:
+
+```
+./gradlew verifyMode screenshotTests
+```
+
 
 ## Tasks
 
