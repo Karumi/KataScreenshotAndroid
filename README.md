@@ -1,12 +1,12 @@
 ![Karumi logo][karumilogo] KataScreenshot for Android.
 ============================
 
-- We are here to practice UI testing using [ScreenshotTestsForAndroid][screenshotFramework].
+- We are here to practice UI testing using [screenshot tests for Android][screenshotFramework].
 - We are going to use [Espresso][espresso] to interact with the Application UI.
 - We are going to use [Dagger2][dagger2] to replace production code with [Test Doubles][testDoubles].
 - We are going to practice pair programming.
 
-**You can compare [another testing strategy][kataSuperHeroesAndroid] based on a more classical approach where the application UI is tested using just Espresso.**
+**You can compare this testing approach with [a different testing strategy][kataSuperHeroesAndroid] where the application UI is tested using just Espresso.**
 
 ---
 
@@ -41,6 +41,8 @@ To verify the correct behaviour of your code you can execute:
 ./gradlew verifyMode screenshotTests
 ```
 
+To be able to get a deterministic test scenario all our tests will be executed on the same emulated device. You can use the Travis-CI configuration to get the same emulator working on your computer.
+
 
 ## Tasks
 
@@ -53,7 +55,7 @@ Our recommendation for this exercise is:
 
   * Before starting
     1. Fork this repository.
-    2. Checkout `kata-super-heroes` branch.
+    2. Checkout `kata-screenshot` branch.
     3. Execute the application, explore it manually and make yourself familiar with the code.
     4. Execute `MainActivityTest` and watch the only test it contains pass.
 
@@ -64,7 +66,7 @@ Our recommendation for this exercise is:
 
 ## Considerations
 
-* If you get stuck, `Master` branch contains already solved tests for `MainActivity` and `SuperHeroDetailActivity`
+* If you get stuck, `Master` branch contains already solved tests for `MainActivity`, `SuperHeroDetailActivity` and `SuperHeroViewHolder`.
 
 * A [DaggerMockRule][daggermock] is an utility to let you create [Dagger 2][dagger2] modules dynamically. In this case we are using it to create a new `MainModule` in this testing scope. Instead of returning real objects, this new `MainModule` will returns the mock for `SuperHeroesRepository` defined in this test.
   
@@ -88,9 +90,6 @@ There are some links which can be useful to finish these tasks:
 * [Android Testing Support Library official documentation][androidTestingDocumentation]
 * [Espresso Cheat Sheet][espressoCheatSheet]
 * [Espresso Idling Resources][espressoIdlingResources]
-* [Espresso Custom Matchers][espressoCustomMatchers]
-* [Finding UI views][findingUIViews]
-* [Espresso Test Toolbar Title][toolbarMatcher]
 
 Data provided by Marvel. © 2017 MARVEL
 
