@@ -5,11 +5,13 @@ buildscript {
   }
   dependencies {
     classpath 'com.neenbedankt.gradle.plugins:android-apt:1.7'
+    classpath 'com.facebook.testing.screenshot:plugin:0.4.2'
   }
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.facebook.testing.screenshot'
 
 android {
   compileSdkVersion 23
@@ -20,7 +22,7 @@ android {
     targetSdkVersion 23
     versionCode 1
     versionName "1.0"
-    testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+    testInstrumentationRunner 'com.karumi.screenshot.ScreenshotTestRunner'
   }
   buildTypes {
     release {
