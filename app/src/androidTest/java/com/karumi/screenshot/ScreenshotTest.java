@@ -30,15 +30,15 @@ import static android.support.test.InstrumentationRegistry.getInstrumentation;
 
 @LargeTest public class ScreenshotTest {
 
-  protected void takeScreenshot(Activity activity) {
+  protected void compareScreenshot(Activity activity) {
     Screenshot.snapActivity(activity).record();
   }
 
-  protected void takeScreenshot(RecyclerView.ViewHolder holder, int height) {
-    takeScreenshot(holder.itemView, height);
+  protected void compareScreenshot(RecyclerView.ViewHolder holder, int height) {
+    compareScreenshot(holder.itemView, height);
   }
 
-  protected void takeScreenshot(View view, int height) {
+  protected void compareScreenshot(View view, int height) {
     Context context = getInstrumentation().getTargetContext();
     WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
     DisplayMetrics metrics = new DisplayMetrics();

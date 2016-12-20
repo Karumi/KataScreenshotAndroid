@@ -32,7 +32,7 @@ import org.mockito.Mock;
 
 import static org.mockito.Mockito.when;
 
-public class SuperHeroDetailActivityTests extends ScreenshotTest {
+public class SuperHeroDetailActivityTest extends ScreenshotTest {
 
   @Rule public DaggerMockRule<MainComponent> daggerRule =
       new DaggerMockRule<>(MainComponent.class, new MainModule()).set(
@@ -56,7 +56,7 @@ public class SuperHeroDetailActivityTests extends ScreenshotTest {
 
     Activity activity = startActivity(superHero);
 
-    takeScreenshot(activity);
+    compareScreenshot(activity);
   }
 
   @Test public void doesNotShowAvengersBadgeIfSuperHeroIsNotPartOfTheAvengersTeam() {
@@ -64,7 +64,7 @@ public class SuperHeroDetailActivityTests extends ScreenshotTest {
 
     Activity activity = startActivity(superHero);
 
-    takeScreenshot(activity);
+    compareScreenshot(activity);
   }
 
   private SuperHero givenAnAvenger() {

@@ -68,7 +68,7 @@ public class MainActivityTest extends ScreenshotTest {
 
     Activity activity = startActivity();
 
-    takeScreenshot(activity);
+    compareScreenshot(activity);
   }
 
   @Test public void showsJustOneSuperHero() {
@@ -76,7 +76,7 @@ public class MainActivityTest extends ScreenshotTest {
 
     Activity activity = startActivity();
 
-    takeScreenshot(activity);
+    compareScreenshot(activity);
   }
 
   @Test public void showsSuperHeroesIfThereAreSomeSuperHeroes() {
@@ -84,7 +84,7 @@ public class MainActivityTest extends ScreenshotTest {
 
     Activity activity = startActivity();
 
-    takeScreenshot(activity);
+    compareScreenshot(activity);
   }
 
   @Test public void showsAvengersBadgeIfASuperHeroIsPartOfTheAvengersTeam() {
@@ -92,7 +92,7 @@ public class MainActivityTest extends ScreenshotTest {
 
     Activity activity = startActivity();
 
-    takeScreenshot(activity);
+    compareScreenshot(activity);
   }
 
   @Test public void doesNotShowAvengersBadgeIfASuperHeroIsNotPartOfTheAvengersTeam() {
@@ -100,7 +100,7 @@ public class MainActivityTest extends ScreenshotTest {
 
     Activity activity = startActivity();
 
-    takeScreenshot(activity);
+    compareScreenshot(activity);
   }
 
   @Test public void opensSuperHeroDetailActivityOnRecyclerViewItemTapped() {

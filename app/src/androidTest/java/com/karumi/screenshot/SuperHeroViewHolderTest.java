@@ -35,7 +35,7 @@ public class SuperHeroViewHolderTest extends ScreenshotTest {
 
     holder.render(superHero);
 
-    takeScreenshot(holder, R.dimen.super_hero_row_height);
+    compareScreenshot(holder, R.dimen.super_hero_row_height);
   }
 
   @Test public void showsSuperHeroesWithLongNames() {
@@ -44,7 +44,7 @@ public class SuperHeroViewHolderTest extends ScreenshotTest {
 
     holder.render(superHero);
 
-    takeScreenshot(holder, R.dimen.super_hero_row_height);
+    compareScreenshot(holder, R.dimen.super_hero_row_height);
   }
 
   @Test public void showsSuperHeroesWithLongDescriptions() {
@@ -53,7 +53,7 @@ public class SuperHeroViewHolderTest extends ScreenshotTest {
 
     holder.render(superHero);
 
-    takeScreenshot(holder, R.dimen.super_hero_row_height);
+    compareScreenshot(holder, R.dimen.super_hero_row_height);
   }
 
   @Test public void showsAvengersBadge() {
@@ -62,7 +62,7 @@ public class SuperHeroViewHolderTest extends ScreenshotTest {
 
     holder.render(superHero);
 
-    takeScreenshot(holder, R.dimen.super_hero_row_height);
+    compareScreenshot(holder, R.dimen.super_hero_row_height);
   }
 
   private SuperHeroViewHolder givenASuperHeroViewHolder() {
