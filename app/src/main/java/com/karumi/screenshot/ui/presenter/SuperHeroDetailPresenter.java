@@ -39,7 +39,7 @@ public class SuperHeroDetailPresenter extends Presenter<SuperHeroDetailPresenter
     getSuperHeroByName.get(name, new GetSuperHeroByName.Callback() {
       @Override public void onSuperHeroLoaded(SuperHero superHero) {
         View view = getView();
-        //view.hideLoading();
+        view.hideLoading();
         view.showSuperHero(superHero);
       }
     });
