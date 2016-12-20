@@ -71,51 +71,6 @@ public class MainActivityTest extends ScreenshotTest {
     compareScreenshot(activity);
   }
 
-  @Test public void showsJustOneSuperHero() {
-    givenThereAreSomeSuperHeroes(1);
-
-    Activity activity = startActivity();
-
-    compareScreenshot(activity);
-  }
-
-  @Test public void showsSuperHeroesIfThereAreSomeSuperHeroes() {
-    givenThereAreSomeSuperHeroes(ANY_NUMBER_OF_SUPER_HEROES);
-
-    Activity activity = startActivity();
-
-    compareScreenshot(activity);
-  }
-
-  @Test public void showsAvengersBadgeIfASuperHeroIsPartOfTheAvengersTeam() {
-    givenThereAreSomeAvengers(ANY_NUMBER_OF_SUPER_HEROES);
-
-    Activity activity = startActivity();
-
-    compareScreenshot(activity);
-  }
-
-  @Test public void doesNotShowAvengersBadgeIfASuperHeroIsNotPartOfTheAvengersTeam() {
-    givenThereAreSomeSuperHeroes(ANY_NUMBER_OF_SUPER_HEROES, false);
-
-    Activity activity = startActivity();
-
-    compareScreenshot(activity);
-  }
-
-  @Test public void opensSuperHeroDetailActivityOnRecyclerViewItemTapped() {
-    List<SuperHero> superHeroes = givenThereAreSomeSuperHeroes();
-    int superHeroIndex = 0;
-    startActivity();
-
-    onView(withId(R.id.recycler_view)).
-        perform(RecyclerViewActions.actionOnItemAtPosition(superHeroIndex, click()));
-
-    SuperHero superHeroSelected = superHeroes.get(superHeroIndex);
-    intended(hasComponent(SuperHeroDetailActivity.class.getCanonicalName()));
-    intended(hasExtra("super_hero_name_key", superHeroSelected.getName()));
-  }
-
   private List<SuperHero> givenThereAreSomeAvengers(int numberOfAvengers) {
     return givenThereAreSomeSuperHeroes(numberOfAvengers, true);
   }

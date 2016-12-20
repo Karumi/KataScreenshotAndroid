@@ -38,33 +38,6 @@ public class SuperHeroViewHolderTest extends ScreenshotTest {
     compareScreenshot(holder, R.dimen.super_hero_row_height);
   }
 
-  @Test public void showsSuperHeroesWithLongNames() {
-    SuperHero superHero = givenASuperHeroWithALongName();
-    SuperHeroViewHolder holder = givenASuperHeroViewHolder();
-
-    holder.render(superHero);
-
-    compareScreenshot(holder, R.dimen.super_hero_row_height);
-  }
-
-  @Test public void showsSuperHeroesWithLongDescriptions() {
-    SuperHero superHero = givenASuperHeroWithALongDescription();
-    SuperHeroViewHolder holder = givenASuperHeroViewHolder();
-
-    holder.render(superHero);
-
-    compareScreenshot(holder, R.dimen.super_hero_row_height);
-  }
-
-  @Test public void showsAvengersBadge() {
-    SuperHero superHero = givenAnAvenger();
-    SuperHeroViewHolder holder = givenASuperHeroViewHolder();
-
-    holder.render(superHero);
-
-    compareScreenshot(holder, R.dimen.super_hero_row_height);
-  }
-
   private SuperHeroViewHolder givenASuperHeroViewHolder() {
     Context context = getInstrumentation().getTargetContext();
     LayoutInflater inflater = LayoutInflater.from(context);
