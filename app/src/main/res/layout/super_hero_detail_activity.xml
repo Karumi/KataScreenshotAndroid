@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (C) 2015 Karumi.
+  ~ Copyright (C) 2017 Karumi.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.karumi.katasuperheroes.ui.view.MainActivity"
+    tools:context="com.karumi.screenshot.ui.view.MainActivity"
     >
 
 
@@ -28,7 +28,7 @@
       android:id="@+id/recycler_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      tools:context="com.karumi.katasuperheroes.ui.view.MainActivity"
+      tools:context="com.karumi.screenshot.ui.view.MainActivity"
       tools:showIn="@layout/main_activity"
       >
 
