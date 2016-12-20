@@ -1,4 +1,4 @@
-![Karumi logo][karumilogo] KataScreenshot for Android.
+![Karumi logo][karumilogo] KataScreenshot for Android. [![Build Status](https://travis-ci.org/Karumi/KataScreenshotAndroid.svg?branch=master)](https://travis-ci.org/Karumi/KataScreenshotAndroid)
 ============================
 
 - We are here to practice UI testing using [screenshot tests for Android][screenshotFramework].
