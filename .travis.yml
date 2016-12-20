@@ -1,4 +1,5 @@
 language: android
+sudo: required
 env:
   global:
     - ADB_INSTALL_TIMEOUT=8 # 8 minutes (2 minutes by default)
@@ -17,8 +18,8 @@ android:
     - sys-img-armeabi-v7a-android-19
 
 before_script:
-  - pip install --upgrade pip
-  - pip install pillowcase
+  - sudo pip install --upgrade pip
+  - sudo pip install pillowcase
   - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a
   - mksdcard -l sdcard 100M sdcard
   - emulator -avd test -no-audio -no-window -sdcard sdcard &
