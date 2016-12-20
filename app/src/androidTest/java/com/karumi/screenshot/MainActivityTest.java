@@ -18,14 +18,12 @@ package com.karumi.screenshot;
 
 import android.app.Activity;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import com.karumi.screenshot.di.MainComponent;
 import com.karumi.screenshot.di.MainModule;
 import com.karumi.screenshot.model.SuperHero;
 import com.karumi.screenshot.model.SuperHeroesRepository;
 import com.karumi.screenshot.ui.view.MainActivity;
-import com.karumi.screenshot.ui.view.SuperHeroDetailActivity;
 import it.cosenonjaviste.daggermock.DaggerMockRule;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -34,17 +32,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.intent.Intents.intended;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtra;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.mockito.Mockito.when;
 
 public class MainActivityTest extends ScreenshotTest {
-
-  private static final int ANY_NUMBER_OF_SUPER_HEROES = 10;
 
   @Rule public DaggerMockRule<MainComponent> daggerRule =
       new DaggerMockRule<>(MainComponent.class, new MainModule()).set(
@@ -71,26 +61,12 @@ public class MainActivityTest extends ScreenshotTest {
     compareScreenshot(activity);
   }
 
-  private List<SuperHero> givenThereAreSomeAvengers(int numberOfAvengers) {
-    return givenThereAreSomeSuperHeroes(numberOfAvengers, true);
-  }
-
-  private List<SuperHero> givenThereAreSomeSuperHeroes() {
-    return givenThereAreSomeSuperHeroes(ANY_NUMBER_OF_SUPER_HEROES);
-  }
-
-  private List<SuperHero> givenThereAreSomeSuperHeroes(int numberOfSuperHeroes) {
-    return givenThereAreSomeSuperHeroes(numberOfSuperHeroes, false);
-  }
-
   private List<SuperHero> givenThereAreSomeSuperHeroes(int numberOfSuperHeroes, boolean avengers) {
     List<SuperHero> superHeroes = new LinkedList<>();
     for (int i = 0; i < numberOfSuperHeroes; i++) {
       String superHeroName = "SuperHero - " + i;
       String superHeroDescription = "Description Super Hero - " + i;
-      SuperHero superHero =
-          new SuperHero(superHeroName, null, avengers,
-              superHeroDescription);
+      SuperHero superHero = new SuperHero(superHeroName, null, avengers, superHeroDescription);
       superHeroes.add(superHero);
       when(repository.getByName(superHeroName)).thenReturn(superHero);
     }
