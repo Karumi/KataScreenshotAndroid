@@ -20,6 +20,7 @@ android:
 before_script:
   - sudo pip install --upgrade pip
   - sudo pip install pillowcase
+  - sudo pip install image
   - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a
   - mksdcard -l sdcard 100M sdcard
   - emulator -avd test -no-audio -no-window -sdcard sdcard &
