@@ -30,6 +30,8 @@ import it.cosenonjaviste.daggermock.DaggerMockRule;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -42,6 +44,8 @@ import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExt
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.mockito.Mockito.when;
 
+
+@Ignore
 public class MainActivityTest extends ScreenshotTest {
 
   private static final int ANY_NUMBER_OF_SUPER_HEROES = 10;

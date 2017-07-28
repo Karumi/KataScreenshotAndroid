@@ -22,11 +22,14 @@ import android.view.View;
 import com.karumi.screenshot.model.SuperHero;
 import com.karumi.screenshot.ui.presenter.SuperHeroesPresenter;
 import com.karumi.screenshot.ui.view.SuperHeroViewHolder;
+
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static org.mockito.Mockito.mock;
 
+@Ignore
 public class SuperHeroViewHolderTest extends ScreenshotTest {
 
   @Test public void showsAnySuperHero() {
