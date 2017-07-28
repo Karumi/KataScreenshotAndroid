@@ -64,7 +64,7 @@ public class SuperHeroDetailActivityTest extends ScreenshotTest {
     @Test
     public void showsTitleBarInTheTop() {
 
-        SuperHero superHero = givenThereIsASuperHero(true);
+        SuperHero superHero = givenSuperHero(SuperHeroMother.commonSuperHero());
 
         Activity activity = startActivity(superHero);
 
@@ -73,20 +73,22 @@ public class SuperHeroDetailActivityTest extends ScreenshotTest {
 
     @Test
     public void showsSuperHeroDescriptionInTheBottom() {
-
-        SuperHero superHero = givenThereIsASuperHero(true);
+        // GIVEN
+        SuperHero superHero = givenSuperHero(SuperHeroMother.bigDescriptionSuperHero());
         Activity activity = startActivity(superHero);
 
+        // WHEN
         // It would be better to scroll to a hidden view placed on the footer or use swipes
         onView(withId(R.id.tv_super_hero_description)).perform(scrollTo());
 
+        // THAT
         compareScreenshot(activity);
     }
 
     @Test
     public void showsAvengersBadgeIfASuperHeroIsPartOfTheAvengersTeam() {
 
-        SuperHero superHero = givenAnAvenger();
+        SuperHero superHero = givenSuperHero(SuperHeroMother.givenAnAvenger());
 
         Activity activity = startActivity(superHero);
 
@@ -96,11 +98,16 @@ public class SuperHeroDetailActivityTest extends ScreenshotTest {
     @Test
     public void doesNotshowAvengersBadgeIfASuperHeroIsNotPartOfTheAvengersTeam() {
 
-        SuperHero superHero = givenThereIsASuperHero(false);
+        SuperHero superHero = givenSuperHero(SuperHeroMother.givenANotAvenger());
 
         Activity activity = startActivity(superHero);
 
         compareScreenshot(activity);
+    }
+
+    private SuperHero givenSuperHero(SuperHero superHero) {
+        when(repository.getByName(superHero.getName())).thenReturn(superHero);
+        return superHero;
     }
 
     // Long name
@@ -110,18 +117,6 @@ public class SuperHeroDetailActivityTest extends ScreenshotTest {
     // Not showing title
     // Not showing description
     // Empty superhero
-
-    private SuperHero givenAnAvenger() {
-        return givenThereIsASuperHero(true);
-    }
-
-    private SuperHero givenThereIsASuperHero(boolean isAvenger) {
-        String superHeroName = "SuperHero";
-        String superHeroDescription = "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas \"Letraset\", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.";
-        SuperHero superHero = new SuperHero(superHeroName, null, isAvenger, superHeroDescription);
-        when(repository.getByName(superHeroName)).thenReturn(superHero);
-        return superHero;
-    }
 
     private SuperHeroDetailActivity startActivity(SuperHero superHero) {
         Intent intent = new Intent();

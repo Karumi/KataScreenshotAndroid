@@ -44,8 +44,6 @@ import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExt
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.mockito.Mockito.when;
 
-
-@Ignore
 public class MainActivityTest extends ScreenshotTest {
 
   private static final int ANY_NUMBER_OF_SUPER_HEROES = 10;
