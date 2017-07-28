@@ -30,6 +30,8 @@ import it.cosenonjaviste.daggermock.DaggerMockRule;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;

@@ -20,68 +20,107 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
+
 import com.karumi.screenshot.di.MainComponent;
 import com.karumi.screenshot.di.MainModule;
 import com.karumi.screenshot.model.SuperHero;
 import com.karumi.screenshot.model.SuperHeroesRepository;
 import com.karumi.screenshot.ui.view.SuperHeroDetailActivity;
-import it.cosenonjaviste.daggermock.DaggerMockRule;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import it.cosenonjaviste.daggermock.DaggerMockRule;
+
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.mockito.Mockito.when;
 
 public class SuperHeroDetailActivityTest extends ScreenshotTest {
 
-  @Rule public DaggerMockRule<MainComponent> daggerRule =
-      new DaggerMockRule<>(MainComponent.class, new MainModule()).set(
-          new DaggerMockRule.ComponentSetter<MainComponent>() {
-            @Override public void setComponent(MainComponent component) {
-              SuperHeroesApplication app =
-                  (SuperHeroesApplication) InstrumentationRegistry.getInstrumentation()
-                      .getTargetContext()
-                      .getApplicationContext();
-              app.setComponent(component);
-            }
-          });
+    @Rule
+    public DaggerMockRule<MainComponent> daggerRule =
+            new DaggerMockRule<>(MainComponent.class, new MainModule()).set(
+                    new DaggerMockRule.ComponentSetter<MainComponent>() {
+                        @Override
+                        public void setComponent(MainComponent component) {
+                            SuperHeroesApplication app =
+                                    (SuperHeroesApplication) InstrumentationRegistry.getInstrumentation()
+                                            .getTargetContext()
+                                            .getApplicationContext();
+                            app.setComponent(component);
+                        }
+                    });
 
-  @Rule public ActivityTestRule<SuperHeroDetailActivity> activityRule =
-      new ActivityTestRule<>(SuperHeroDetailActivity.class, true, false);
+    @Rule
+    public ActivityTestRule<SuperHeroDetailActivity> activityRule =
+            new ActivityTestRule<>(SuperHeroDetailActivity.class, true, false);
 
-  @Mock SuperHeroesRepository repository;
+    @Mock
+    SuperHeroesRepository repository;
 
-  @Test public void showsAvengersBadgeIfSuperHeroIsNotPartOfTheAvengersTeam() {
-    SuperHero superHero = givenAnAvenger();
+    @Test
+    public void showsTitleBarInTheTop() {
 
-    Activity activity = startActivity(superHero);
+        SuperHero superHero = givenSuperHero(SuperHeroMother.commonSuperHero());
 
-    compareScreenshot(activity);
-  }
+        Activity activity = startActivity(superHero);
 
-  @Test public void doesNotShowAvengersBadgeIfSuperHeroIsNotPartOfTheAvengersTeam() {
-    SuperHero superHero = givenThereIsASuperHero(false);
+        compareScreenshot(activity);
+    }
 
-    Activity activity = startActivity(superHero);
+    @Test
+    public void showsSuperHeroDescriptionInTheBottom() {
+        // GIVEN
+        SuperHero superHero = givenSuperHero(SuperHeroMother.bigDescriptionSuperHero());
+        Activity activity = startActivity(superHero);
 
-    compareScreenshot(activity);
-  }
+        // WHEN
+        // It would be better to scroll to a hidden view placed on the footer or use swipes
+        onView(withId(R.id.tv_super_hero_description)).perform(scrollTo());
 
-  private SuperHero givenAnAvenger() {
-    return givenThereIsASuperHero(true);
-  }
+        // THAT
+        compareScreenshot(activity);
+    }
 
-  private SuperHero givenThereIsASuperHero(boolean isAvenger) {
-    String superHeroName = "SuperHero";
-    String superHeroDescription = "Super Hero Description";
-    SuperHero superHero = new SuperHero(superHeroName, null, isAvenger, superHeroDescription);
-    when(repository.getByName(superHeroName)).thenReturn(superHero);
-    return superHero;
-  }
+    @Test
+    public void showsAvengersBadgeIfASuperHeroIsPartOfTheAvengersTeam() {
 
-  private SuperHeroDetailActivity startActivity(SuperHero superHero) {
-    Intent intent = new Intent();
-    intent.putExtra("super_hero_name_key", superHero.getName());
-    return activityRule.launchActivity(intent);
-  }
+        SuperHero superHero = givenSuperHero(SuperHeroMother.givenAnAvenger());
+
+        Activity activity = startActivity(superHero);
+
+        compareScreenshot(activity);
+    }
+
+    @Test
+    public void doesNotshowAvengersBadgeIfASuperHeroIsNotPartOfTheAvengersTeam() {
+
+        SuperHero superHero = givenSuperHero(SuperHeroMother.givenANotAvenger());
+
+        Activity activity = startActivity(superHero);
+
+        compareScreenshot(activity);
+    }
+
+    private SuperHero givenSuperHero(SuperHero superHero) {
+        when(repository.getByName(superHero.getName())).thenReturn(superHero);
+        return superHero;
+    }
+
+    // Long name
+    // Long description (ellipsize)
+    // Description with special characters
+    // Show all info
+    // Not showing title
+    // Not showing description
+    // Empty superhero
+
+    private SuperHeroDetailActivity startActivity(SuperHero superHero) {
+        Intent intent = new Intent();
+        intent.putExtra("super_hero_name_key", superHero.getName());
+        return activityRule.launchActivity(intent);
+    }
 }
