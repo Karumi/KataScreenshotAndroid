@@ -18,9 +18,6 @@ android:
     - sys-img-armeabi-v7a-android-19
 
 before_script:
-  - sudo pip install --upgrade pip
-  - sudo pip install pillowcase
-  - sudo pip install image
   - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a
   - mksdcard -l sdcard 100M sdcard
   - emulator -avd test -no-audio -no-window -sdcard sdcard &
@@ -31,4 +28,4 @@ before_script:
   - adb shell input keyevent 82 &
 
 script:
-  - ./gradlew checkstyle build verifyMode screenshotTests -Pcom.android.build.threadPoolSize=1 -Dorg.gradle.parallel=false -Dorg.gradle.jvmargs="-Xms1024m -Xmx1024m" -Dorg.gradle.daemon=false
+  - ./gradlew checkstyle build executeScreenshotTests -Pcom.android.build.threadPoolSize=1 -Dorg.gradle.parallel=false -Dorg.gradle.jvmargs="-Xms1024m -Xmx1024m" -Dorg.gradle.daemon=false
