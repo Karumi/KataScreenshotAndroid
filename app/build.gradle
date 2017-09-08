@@ -6,12 +6,14 @@ buildscript {
   dependencies {
     classpath 'com.neenbedankt.gradle.plugins:android-apt:1.7'
     classpath 'com.facebook.testing.screenshot:plugin:0.4.2'
+    classpath 'com.karumi:shot:0.1.2'
   }
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.facebook.testing.screenshot'
+apply plugin: 'shot'
 
 android {
   compileSdkVersion 23
@@ -68,4 +70,8 @@ dependencies {
 
 configurations.all {
   resolutionStrategy.force 'com.android.support:support-annotations:23.0.1'
+}
+
+shot {
+  appId = 'com.karumi.screenshot'
 }
