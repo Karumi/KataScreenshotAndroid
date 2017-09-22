@@ -1,30 +1,80 @@
+apply plugin: 'com.android.application'
+apply plugin: 'shot'
+
 buildscript {
   repositories {
-    jcenter()
-  }
-  dependencies {
-    classpath 'com.android.tools.build:gradle:1.5.0'
-  }
-}
-
-allprojects {
-  repositories {
-    jcenter()
+    mavenCentral()
     maven { url "https://jitpack.io" }
   }
-
-  apply plugin: 'checkstyle'
-
-  task checkstyle(type: Checkstyle) {
-    configFile file("${project.rootDir}/config/checkstyle.xml")
-    source 'src'
-    include '**/*.java'
-    exclude '**/gen/**'
-
-    classpath = files()
+  dependencies {
+    classpath 'com.facebook.testing.screenshot:plugin:0.4.3'
+    classpath 'com.karumi:shot:0.2.0'
   }
 }
 
-task clean(type: Delete) {
-  delete rootProject.buildDir
+ext {
+  supportLibVersion = '25.4.0'
+  espressoVersion = '3.0.1'
+  testLibVersion = '1.0.1'
+}
+
+android {
+  compileSdkVersion 25
+  buildToolsVersion '25.0.2'
+  defaultConfig {
+    applicationId 'com.karumi.screenshot'
+    minSdkVersion 16
+    targetSdkVersion 25
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner 'com.karumi.screenshot.ScreenshotTestRunner'
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+    }
+  }
+  lintOptions {
+    abortOnError false
+  }
+}
+
+dependencies {
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+  compile "com.android.support:appcompat-v7:$supportLibVersion"
+  compile "com.android.support:design:$supportLibVersion"
+  compile 'com.squareup.picasso:picasso:2.5.2'
+  compile 'com.jakewharton:butterknife:7.0.1'
+  compile 'com.google.dagger:dagger:2.0.2'
+  compile 'org.glassfish:javax.annotation:10.0-b28'
+  annotationProcessor 'com.google.dagger:dagger-compiler:2.0.2'
+  testCompile 'com.google.dagger:dagger-compiler:2.0.2'
+  testCompile 'junit:junit:4.12'
+  androidTestCompile 'com.github.fabioCollini:DaggerMock:0.4'
+  androidTestCompile 'com.google.dagger:dagger-compiler:2.0.2'
+  androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
+  androidTestCompile('com.google.dexmaker:dexmaker-mockito:1.2') {
+    exclude group: 'org.hamcrest', module: 'hamcrest-core'
+  }
+  androidTestCompile "com.android.support.test:runner:$testLibVersion"
+  androidTestCompile "com.android.support.test:rules:$testLibVersion"
+  androidTestCompile 'org.mockito:mockito-core:1.10.19'
+  androidTestCompile("com.android.support.test.espresso:espresso-core:$espressoVersion") {
+    exclude group: 'javax.inject', module: 'javax.inject'
+    exclude group: 'com.squareup', module: 'javawriter'
+  }
+  androidTestCompile("com.android.support.test.espresso:espresso-contrib:$espressoVersion") {
+    exclude module: 'support-annotations'
+    exclude module: 'recyclerview-v7'
+    exclude module: 'support-v4'
+  }
+  androidTestCompile "com.android.support.test.espresso:espresso-intents:$espressoVersion"
+}
+
+configurations.all {
+  resolutionStrategy.force "com.android.support:support-annotations:$supportLibVersion"
+}
+
+shot {
+  appId = 'com.karumi.screenshot.uid'
 }
