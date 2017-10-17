@@ -32,13 +32,13 @@ The application architecture, dependencies and configuration is ready to just st
 Remember that after any production code change you can record your screenshots again executing:
 
 ```
-./gradlew recordMode screenshotTests
+./gradlew executeScreenshotTests -Precord
 ```
 
 To verify the correct behaviour of your code you can execute:
 
 ```
-./gradlew verifyMode screenshotTests
+./gradlew executeScreenshotTests
 ```
 
 To be able to get a deterministic test scenario all our tests will be executed on the same emulated device. You can use the Travis-CI configuration to get the same emulator working on your computer.
@@ -66,7 +66,7 @@ Our recommendation for this exercise is:
 
 ## Considerations
 
-* If you get stuck, `Master` branch contains already solved tests for `MainActivity`, `SuperHeroDetailActivity` and `SuperHeroViewHolder`.
+* If you get stuck, `master` branch contains already solved tests for `MainActivity`, `SuperHeroDetailActivity` and `SuperHeroViewHolder`.
 
 * A [DaggerMockRule][daggermock] is an utility to let you create [Dagger 2][dagger2] modules dynamically. In this case we are using it to create a new `MainModule` in this testing scope. Instead of returning real objects, this new `MainModule` will returns the mock for `SuperHeroesRepository` defined in this test.
   
