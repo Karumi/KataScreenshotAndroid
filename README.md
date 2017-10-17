@@ -1,4 +1,4 @@
-![Karumi logo][karumilogo] KataScreenshot for Android. [![Build Status](https://travis-ci.org/Karumi/KataScreenshotAndroid.svg?branch=master)](https://travis-ci.org/Karumi/KataScreenshotAndroid)
+![Karumi logo][karumilogo] KataScreenshot for Android [![Build Status](https://travis-ci.org/Karumi/KataScreenshotAndroid.svg?branch=master)](https://travis-ci.org/Karumi/KataScreenshotAndroid)
 ============================
 
 - We are here to practice UI testing using [screenshot tests for Android][screenshotFramework].
@@ -93,7 +93,7 @@ There are some links which can be useful to finish these tasks:
 
 Data provided by Marvel. © 2017 MARVEL
 
-#License
+# License
 
 Copyright 2017 Karumi
 
