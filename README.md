@@ -86,6 +86,7 @@ If you've covered all the application functionality using UI tests try to contin
 
 There are some links which can be useful to finish these tasks:
 
+* [Screenshot Kata in Kotlin][screenshotKataKotlin]
 * [Screenshot Testing Framework][screenshotFramework]
 * [Android Testing Support Library official documentation][androidTestingDocumentation]
 * [Espresso Cheat Sheet][espressoCheatSheet]
@@ -125,4 +126,5 @@ limitations under the License.
 [toolbarMatcher]: http://blog.sqisland.com/2015/05/espresso-match-toolbar-title.html
 [daggermock]: https://github.com/fabioCollini/DaggerMock
 [kataSuperHeroesAndroid]: https://github.com/karumi/KataSuperHeroesAndroid
+[screenshotKataKotlin]: https://github.com/Karumi/KataScreenshotKotlin
 
