@@ -1,77 +1,78 @@
 buildscript {
-  repositories {
-    mavenCentral()
-    maven { url "https://jitpack.io" }
-  }
-  dependencies {
-    classpath 'com.neenbedankt.gradle.plugins:android-apt:1.7'
-    classpath 'com.facebook.testing.screenshot:plugin:0.4.2'
-    classpath 'com.karumi:shot:0.1.2'
-  }
+    repositories {
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+    dependencies {
+        // classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.facebook.testing.screenshot:plugin:0.7.0'
+        classpath 'com.karumi:shot:0.1.2'
+    }
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
+//apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.facebook.testing.screenshot'
 apply plugin: 'shot'
 
 android {
-  compileSdkVersion 23
-  buildToolsVersion "23.0.2"
-  defaultConfig {
-    applicationId 'com.karumi.screenshot'
-    minSdkVersion 16
-    targetSdkVersion 23
-    versionCode 1
-    versionName "1.0"
-    testInstrumentationRunner 'com.karumi.screenshot.ScreenshotTestRunner'
-  }
-  buildTypes {
-    release {
-      minifyEnabled false
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId 'com.karumi.screenshot'
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner 'com.karumi.screenshot.ScreenshotTestRunner'
     }
-  }
-  lintOptions {
-    abortOnError false
-  }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
-  compile fileTree(dir: 'libs', include: ['*.jar'])
-  compile 'com.android.support:appcompat-v7:23.1.1'
-  compile 'com.android.support:design:23.1.1'
-  compile 'com.squareup.picasso:picasso:2.5.2'
-  compile 'com.jakewharton:butterknife:7.0.1'
-  compile 'com.google.dagger:dagger:2.0.2'
-  compile 'org.glassfish:javax.annotation:10.0-b28'
-  apt 'com.google.dagger:dagger-compiler:2.0.2'
-  testCompile 'com.google.dagger:dagger-compiler:2.0.2'
-  testCompile 'junit:junit:4.12'
-  androidTestCompile 'com.github.fabioCollini:DaggerMock:0.4'
-  androidTestApt 'com.google.dagger:dagger-compiler:2.0.2'
-  androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
-  androidTestCompile('com.google.dexmaker:dexmaker-mockito:1.2') {
-    exclude group: 'org.hamcrest', module: 'hamcrest-core'
-  }
-  androidTestCompile 'com.android.support.test:runner:0.4.1'
-  androidTestCompile 'com.android.support.test:rules:0.4.1'
-  androidTestCompile 'org.mockito:mockito-core:1.10.19'
-  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.1') {
-    exclude group: 'javax.inject', module: 'javax.inject'
-    exclude group: 'com.squareup', module: 'javawriter'
-  }
-  androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.1') {
-    exclude module: 'support-annotations'
-    exclude module: 'recyclerview-v7'
-    exclude module: 'support-v4'
-  }
-  androidTestCompile('com.android.support.test.espresso:espresso-intents:2.2.1')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.google.dagger:dagger:2.10'
+    implementation 'org.glassfish:javax.annotation:10.0-b28'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
+    testImplementation 'com.google.dagger:dagger-compiler:2.9'
+
+    testImplementation 'com.github.fabioCollini.daggermock:daggermock:0.8.4'
+    //and/or
+    androidTestImplementation 'com.github.fabioCollini.daggermock:daggermock:0.8.4'
+    testImplementation 'junit:junit:4.12'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
+    //androidTestImplementation 'com.google.dexmaker:dexmaker:2.2.0'
+    androidTestImplementation 'com.linkedin.dexmaker:dexmaker:2.16.0'
+    androidTestImplementation ('com.linkedin.dexmaker:dexmaker-mockito:2.16.0'){
+        exclude group: 'org.hamcrest', module: 'hamcrest-core'
+    }
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    testImplementation 'org.mockito:mockito-core:2.16.0'
+    androidTestImplementation 'org.mockito:mockito-core:2.16.0'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2') {
+        exclude group: 'javax.inject', module: 'javax.inject'
+        exclude group: 'com.squareup', module: 'javawriter'
+    }
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
 }
 
 configurations.all {
-  resolutionStrategy.force 'com.android.support:support-annotations:23.0.1'
+    resolutionStrategy.force 'com.android.support:support-annotations:23.0.1'
 }
 
 shot {
-  appId = 'com.karumi.screenshot'
+    appId = 'com.karumi.screenshot'
 }
