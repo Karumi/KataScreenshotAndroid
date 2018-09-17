@@ -1,4 +1,4 @@
-![Karumi logo][karumilogo] KataScreenshot for Android. [![Build Status](https://travis-ci.org/Karumi/KataScreenshotAndroid.svg?branch=master)](https://travis-ci.org/Karumi/KataScreenshotAndroid)
+![Karumi logo][karumilogo] KataScreenshot for Android [![Build Status](https://travis-ci.org/Karumi/KataScreenshotAndroid.svg?branch=master)](https://travis-ci.org/Karumi/KataScreenshotAndroid)
 ============================
 
 - We are here to practice UI testing using [screenshot tests for Android][screenshotFramework].
@@ -32,13 +32,13 @@ The application architecture, dependencies and configuration is ready to just st
 Remember that after any production code change you can record your screenshots again executing:
 
 ```
-./gradlew recordMode screenshotTests
+./gradlew executeScreenshotTests -Precord
 ```
 
 To verify the correct behaviour of your code you can execute:
 
 ```
-./gradlew verifyMode screenshotTests
+./gradlew executeScreenshotTests
 ```
 
 To be able to get a deterministic test scenario all our tests will be executed on the same emulated device. You can use the Travis-CI configuration to get the same emulator working on your computer.
@@ -66,7 +66,7 @@ Our recommendation for this exercise is:
 
 ## Considerations
 
-* If you get stuck, `Master` branch contains already solved tests for `MainActivity`, `SuperHeroDetailActivity` and `SuperHeroViewHolder`.
+* If you get stuck, `master` branch contains already solved tests for `MainActivity`, `SuperHeroDetailActivity` and `SuperHeroViewHolder`.
 
 * A [DaggerMockRule][daggermock] is an utility to let you create [Dagger 2][dagger2] modules dynamically. In this case we are using it to create a new `MainModule` in this testing scope. Instead of returning real objects, this new `MainModule` will returns the mock for `SuperHeroesRepository` defined in this test.
   
@@ -86,6 +86,7 @@ If you've covered all the application functionality using UI tests try to contin
 
 There are some links which can be useful to finish these tasks:
 
+* [Screenshot Kata in Kotlin][screenshotKataKotlin]
 * [Screenshot Testing Framework][screenshotFramework]
 * [Android Testing Support Library official documentation][androidTestingDocumentation]
 * [Espresso Cheat Sheet][espressoCheatSheet]
@@ -93,7 +94,7 @@ There are some links which can be useful to finish these tasks:
 
 Data provided by Marvel. © 2017 MARVEL
 
-#License
+# License
 
 Copyright 2017 Karumi
 
@@ -125,4 +126,5 @@ limitations under the License.
 [toolbarMatcher]: http://blog.sqisland.com/2015/05/espresso-match-toolbar-title.html
 [daggermock]: https://github.com/fabioCollini/DaggerMock
 [kataSuperHeroesAndroid]: https://github.com/karumi/KataSuperHeroesAndroid
+[screenshotKataKotlin]: https://github.com/Karumi/KataScreenshotKotlin
 
